@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<odoo>
+
+	<record id="group_data_migration" model="res.groups">
+		<field name="name">Cash Responsible</field>
+		<field name="implied_ids" eval="[(4, ref('base.user_root'))]" />
+		<field name="category_id" ref="base.module_category_accounting_and_finance" />
+	</record>
+        
+</odoo>

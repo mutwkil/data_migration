@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_data_migration,datd.migration,model_data_migration,base.group_erp_manager,1,1,1,1
+access_update_screen,update.screen,model_update_screen,base.group_erp_manager,1,1,1,1
+access_db1_fields,db1.fields,model_data_migration_db1_fields,base.group_erp_manager,1,1,1,1

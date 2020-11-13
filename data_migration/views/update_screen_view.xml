@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="update_screen_view_form">
+		<field name="name">update.screen.view.form</field>
+		<field name="model">update.screen</field>
+		<field name="arch" type="xml">
+			<form string="Data migration">
+				<group>
+					<field name="field1"/>
+					<field name="field2"/>
+					<field name="field3"/>
+					<field name="field4"/>
+					<field name="field5"/>
+					<field name="date"/>
+					<field name="date2"/>
+					<field name="date3"/>
+				</group>
+			</form>
+		</field>
+	</record>
+	<record model="ir.actions.act_window" id="update_screen_action">
+		<field name="name">Update screen</field>
+		<field name="res_model">update.screen</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="Update"  id="menu_update_screen_configuration" parent="menu_data_migration" action="update_screen_action" groups="base.group_erp_manager"/>
+</odoo>

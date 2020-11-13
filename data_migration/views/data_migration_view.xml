@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="data_migration_view_form">
+		<field name="name">data.migration.view.form</field>
+		<field name="model">data.migration</field>
+		<field name="arch" type="xml">
+			<form string="Data migration">
+				<group>
+					<field name="db1_url"/>
+					<field name="db1_name"/>
+					<field name="db1_user"/>
+					<field name="db1_pass" password="True"/>
+					
+					<field name="model_name" options="{'no_create': True}"/>
+					<field name="domain" invisible="1"/>
+					<field name="get_inactive"/>
+					<field name="fields_list" invisible="1"/>
+				</group>
+				<group>
+					<button string="Test" name="test" type="object" class="oe_highlight" />
+					<button string="Transfer" name="connect" type="object" class="oe_highlight" />
+				</group>
+				<group>
+					<field name="db1_fields" nolabel="1" widget="many2many_list	">
+						<tree editable="bottom">
+							<field name="is_active"/>
+							<field name="name"/>
+							<field name="type"/>
+						</tree>
+					</field>
+				</group>
+			</form>
+		</field>
+	</record>
+	<record model="ir.actions.act_window" id="data_migration_action">
+		<field name="name">Data migration</field>
+		<field name="res_model">data.migration</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="Data migration" id="menu_data_migration" sequence="90" groups="base.group_erp_manager" web_icon="data_migration,static/description/icon.png" />/>
+	<menuitem name="Configuration"  id="menu_data_migration_configuration" parent="menu_data_migration" action="data_migration_action" groups="base.group_erp_manager"/>
+</odoo>
