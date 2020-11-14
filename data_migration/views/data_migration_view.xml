@@ -5,34 +5,36 @@
 		<field name="model">data.migration</field>
 		<field name="arch" type="xml">
 			<form string="Data migration">
-				<group>
-					<field name="db_url"/>
-					<field name="db_name"/>
-					<field name="db_user"/>
-					<field name="db_pass" password="True"/>
-					
-					<field name="model_name" options="{'no_create': True}"/>
-					<field name="domain" invisible="1"/>
-					<field name="get_inactive"/>
-					<field name="fields_list" invisible="1"/>
-				</group>
-				<group>
-					<button string="Test" name="test" type="object" class="oe_highlight" />
-					<button string="Transfer" name="connect" type="object" class="oe_highlight" />
-				</group>
-				<notebook>
-					<page string="Fields">
-						<group>
-							<field name="db1_fields" nolabel="1" widget="many2many_list	">
-								<tree editable="bottom" create="false">
-									<field name="is_active"/>
-									<field name="name"/>
-									<field name="type"/>
-								</tree>
-							</field>
-						</group>
-					</page>
-				</notebook>
+				<sheet>
+					<group>
+						<field name="db_url"/>
+						<field name="db_name"/>
+						<field name="db_user"/>
+						<field name="db_pass" password="True"/>
+
+						<field name="model_name" options="{'no_create': True}"/>
+						<field name="domain" invisible="1"/>
+						<field name="get_inactive"/>
+						<field name="fields_list" invisible="1"/>
+					</group>
+					<group>
+						<button string="Test" name="test" type="object" class="oe_highlight" />
+						<button string="Transfer" name="connect" type="object" class="oe_highlight" />
+					</group>
+					<notebook>
+						<page string="Fields">
+							<group>
+								<field name="db1_fields" nolabel="1" widget="many2many_list	">
+									<tree editable="bottom" create="false">
+										<field name="is_active"/>
+										<field name="name"/>
+										<field name="type"/>
+									</tree>
+								</field>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
 			</form>
 		</field>
 	</record>

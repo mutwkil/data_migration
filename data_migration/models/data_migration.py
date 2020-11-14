@@ -42,7 +42,7 @@ class DataMigration(models.Model):
             'message_follower_ids', 'message_needaction',
             'message_channel_ids', 'message_partner_ids', 'message_unread',
             'message_ids', 'message_last_post', 'message_is_follower',
-            'display_name', 'create_uid', '__last_update', 'message_needaction_counter',
+            '__last_update', 'message_needaction_counter', 'display_name',
             'write_date', 'write_uid', 'create_date', 'message_unread_counter']
         try:
             common_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(self.db_url))
@@ -90,16 +90,17 @@ class DataMigration(models.Model):
         domain = self.domain
         # domain = domain.split(',')
         uid_db1 = common_1.authenticate(self.db_name, self.db_user, self.db_pass, {})
-        if not self.get_inactive:
-            db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
-                                           [[]],
-                                           {'fields': ll_list})
-            # ['id','not in',(1,2,3,4,5)]
-            # ['id', '>', 3]
-        else:
-            db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
+        # if not self.get_inactive:
+        db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
+                                       [[]],
+                                       {'fields': ll_list})
+        # ['id','not in',(1,2,3,4,5)]
+        # ['id', '>', 3]
+        if self.get_inactive:
+            archived_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
                                            [[['active', '=', False]]],
                                            {'fields': ll_list})
+            db_1_obj = db_1_obj + archived_obj
 
         for rec in db_1_obj:
             model_name = str(self.model_name.model).replace('.', '_')
