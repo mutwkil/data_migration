@@ -70,11 +70,13 @@ class DataMigration(models.Model):
     def connect(self):
         # fields = self.fields_list.split(",")
         bad_chars = [';', ':', '!', "*", '&', "\'", '	']
-        print('--------', self.db1_fields.ids)
         ll_list = []
         for f_name in self.db1_fields:
             if f_name.is_active:
                 ll_list.append(f_name.name)
+
+        if len(ll_list) == 0:
+            raise UserError(_('Select one field at least'))
 
         # ll_list.append('sequence_id')
         # ll_list.append('invoice_reference_type')
@@ -83,15 +85,8 @@ class DataMigration(models.Model):
         # ll_list.append('fields_id')
         # ll_list.append('company_id')
 
-        print('lstttt >>>>>>>>>>>>>>>>>>>>>', ll_list)
-
         common_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(self.db_url))
         models_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(self.db_url))
-        # version_db1 = common_1.version()
-        # print('Details of db_1', version_db1)
-        print('fff >> ', [self.fields_list])
-        print('---333--', type(fields), fields)
-        print('domain-------------->', self.domain)
         domain = self.domain
         # domain = domain.split(',')
         uid_db1 = common_1.authenticate(self.db_name, self.db_user, self.db_pass, {})
@@ -148,9 +143,8 @@ class DataMigration(models.Model):
                 ", ".join(name for name in ll_list),
                 ", ".join(name for name in lsst_ids),
             )
-
-            print('+++++++++++++++++++++++++++++++++++++++++', query)
             result = self._cr.execute(query)
+
 
     class DataMigration(models.Model):
         _name = "data.migration.db1.fields"

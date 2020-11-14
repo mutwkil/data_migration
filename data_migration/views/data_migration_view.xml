@@ -23,8 +23,8 @@
 				<notebook>
 					<page string="Fields">
 						<group>
-							<field name="db1_fields" options="{'no_create': True}"  nolabel="1" widget="many2many_list	">
-								<tree editable="bottom">
+							<field name="db1_fields" nolabel="1" widget="many2many_list	">
+								<tree editable="bottom" create="false">
 									<field name="is_active"/>
 									<field name="name"/>
 									<field name="type"/>
