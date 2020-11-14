@@ -6,10 +6,10 @@
 		<field name="arch" type="xml">
 			<form string="Data migration">
 				<group>
-					<field name="db1_url"/>
-					<field name="db1_name"/>
-					<field name="db1_user"/>
-					<field name="db1_pass" password="True"/>
+					<field name="db_url"/>
+					<field name="db_name"/>
+					<field name="db_user"/>
+					<field name="db_pass" password="True"/>
 					
 					<field name="model_name" options="{'no_create': True}"/>
 					<field name="domain" invisible="1"/>
@@ -23,7 +23,7 @@
 				<notebook>
 					<page string="Fields">
 						<group>
-							<field name="db1_fields" nolabel="1" widget="many2many_list	">
+							<field name="db1_fields" options="{'no_create': True}"  nolabel="1" widget="many2many_list	">
 								<tree editable="bottom">
 									<field name="is_active"/>
 									<field name="name"/>

@@ -12,10 +12,10 @@ from odoo.exceptions import UserError
 class DataMigration(models.Model):
     _name = "data.migration"
 
-    db1_url = fields.Char('DB connection')
-    db1_name = fields.Char('DB Name')
-    db1_user = fields.Char('DB user')
-    db1_pass = fields.Char('DB password')
+    db_url = fields.Char('DB connection')
+    db_name = fields.Char('DB Name')
+    db_user = fields.Char('DB user')
+    db_pass = fields.Char('DB password')
 
     # model_name = fields.Char('Model Name')
     model_name = fields.Many2one('ir.model')
@@ -45,14 +45,14 @@ class DataMigration(models.Model):
             'display_name', 'create_uid', '__last_update', 'message_needaction_counter',
             'write_date', 'write_uid', 'create_date', 'message_unread_counter']
         try:
-            common_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(self.db1_url))
-            models_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(self.db1_url))
+            common_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(self.db_url))
+            models_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(self.db_url))
             # version_db1 = common_1.version()
             # print('Details of db_1', version_db1)
             print('fff >> ', [self.fields_list])
             print('---333--', type(fields), fields)
-            uid_db1 = common_1.authenticate(self.db1_name, self.db1_user, self.db1_pass, {})
-            db_1_obj = models_1.execute_kw(self.db1_name, uid_db1, self.db1_pass, self.model_name.model, 'search_read',
+            uid_db1 = common_1.authenticate(self.db_name, self.db_user, self.db_pass, {})
+            db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
                                            [[]],
                                            {'fields': [], 'limit': 1})
             print('............', db_1_obj[0])
@@ -85,8 +85,8 @@ class DataMigration(models.Model):
 
         print('lstttt >>>>>>>>>>>>>>>>>>>>>', ll_list)
 
-        common_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(self.db1_url))
-        models_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(self.db1_url))
+        common_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(self.db_url))
+        models_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(self.db_url))
         # version_db1 = common_1.version()
         # print('Details of db_1', version_db1)
         print('fff >> ', [self.fields_list])
@@ -94,14 +94,15 @@ class DataMigration(models.Model):
         print('domain-------------->', self.domain)
         domain = self.domain
         # domain = domain.split(',')
-        uid_db1 = common_1.authenticate(self.db1_name, self.db1_user, self.db1_pass, {})
+        uid_db1 = common_1.authenticate(self.db_name, self.db_user, self.db_pass, {})
         if not self.get_inactive:
-            db_1_obj = models_1.execute_kw(self.db1_name, uid_db1, self.db1_pass, self.model_name.model, 'search_read',
-                                           [[['id', '>', 3]]],
+            db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
+                                           [[]],
                                            {'fields': ll_list})
             # ['id','not in',(1,2,3,4,5)]
+            # ['id', '>', 3]
         else:
-            db_1_obj = models_1.execute_kw(self.db1_name, uid_db1, self.db1_pass, self.model_name.model, 'search_read',
+            db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
                                            [[['active', '=', False]]],
                                            {'fields': ll_list})
 
