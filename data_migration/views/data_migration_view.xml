@@ -20,15 +20,19 @@
 					<button string="Test" name="test" type="object" class="oe_highlight" />
 					<button string="Transfer" name="connect" type="object" class="oe_highlight" />
 				</group>
-				<group>
-					<field name="db1_fields" nolabel="1" widget="many2many_list	">
-						<tree editable="bottom">
-							<field name="is_active"/>
-							<field name="name"/>
-							<field name="type"/>
-						</tree>
-					</field>
-				</group>
+				<notebook>
+					<page string="Fields">
+						<group>
+							<field name="db1_fields" nolabel="1" widget="many2many_list	">
+								<tree editable="bottom">
+									<field name="is_active"/>
+									<field name="name"/>
+									<field name="type"/>
+								</tree>
+							</field>
+						</group>
+					</page>
+				</notebook>
 			</form>
 		</field>
 	</record>

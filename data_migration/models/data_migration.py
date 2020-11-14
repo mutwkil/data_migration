@@ -44,27 +44,27 @@ class DataMigration(models.Model):
             'message_ids', 'message_last_post', 'message_is_follower',
             'display_name', 'create_uid', '__last_update', 'message_needaction_counter',
             'write_date', 'write_uid', 'create_date', 'message_unread_counter']
-        # try:
-        common_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(self.db1_url))
-        models_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(self.db1_url))
-        # version_db1 = common_1.version()
-        # print('Details of db_1', version_db1)
-        print('fff >> ', [self.fields_list])
-        print('---333--', type(fields), fields)
-        uid_db1 = common_1.authenticate(self.db1_name, self.db1_user, self.db1_pass, {})
-        db_1_obj = models_1.execute_kw(self.db1_name, uid_db1, self.db1_pass, self.model_name.model, 'search_read',
-                                       [[]],
-                                       {'fields': [], 'limit': 1})
-        print('............', db_1_obj[0])
-        # for iii in db_1_obj[0].keys():
-        #     if iii not in unwanted_columns:
-        #         self.db1_fields = [(0, 0, {'name': iii, 'type': type()})]
-        for mm in self.env['ir.model'].search([('model', '=', str(self.model_name.model))]):
-            for iii in mm.field_id:
-                if iii.name not in unwanted_columns:
-                    self.db1_fields = [(0, 0, {'name': iii.name, 'type': iii.ttype})]
-        # except Exception:
-        #     raise UserError(_('Connection unsuccessfull  !'))
+        try:
+            common_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(self.db1_url))
+            models_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(self.db1_url))
+            # version_db1 = common_1.version()
+            # print('Details of db_1', version_db1)
+            print('fff >> ', [self.fields_list])
+            print('---333--', type(fields), fields)
+            uid_db1 = common_1.authenticate(self.db1_name, self.db1_user, self.db1_pass, {})
+            db_1_obj = models_1.execute_kw(self.db1_name, uid_db1, self.db1_pass, self.model_name.model, 'search_read',
+                                           [[]],
+                                           {'fields': [], 'limit': 1})
+            print('............', db_1_obj[0])
+            # for iii in db_1_obj[0].keys():
+            #     if iii not in unwanted_columns:
+            #         self.db1_fields = [(0, 0, {'name': iii, 'type': type()})]
+            for mm in self.env['ir.model'].search([('model', '=', str(self.model_name.model))]):
+                for iii in mm.field_id:
+                    if iii.name not in unwanted_columns:
+                        self.db1_fields = [(0, 0, {'name': iii.name, 'type': iii.ttype})]
+        except Exception:
+            raise UserError(_('Connection unsuccessfull  !'))
 
 
     def connect(self):
