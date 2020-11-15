@@ -22,7 +22,7 @@ class DataMigration(models.Model):
     fields_list = fields.Char('Fields')
     db1_fields = fields.One2many('data.migration.db1.fields', 'data_migration', 'db1 fields')
     domain = fields.Char('Domain')
-    get_inactive = fields.Boolean('Archived Data')
+    get_inactive = fields.Boolean('Include Archived')
 
     _rec_name = 'model_name'
 
@@ -63,8 +63,8 @@ class DataMigration(models.Model):
                 for iii in mm.field_id:
                     if iii.name not in unwanted_columns:
                         self.db1_fields = [(0, 0, {'name': iii.name, 'type': iii.ttype})]
-        except Exception:
-            raise UserError(_('Connection unsuccessfull  !'))
+        except Exception as e:
+            raise UserError(_('Connection unsuccessfull  !%s',e))
 
 
     def connect(self):
