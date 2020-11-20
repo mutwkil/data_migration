@@ -42,7 +42,7 @@ class DataMigration(models.Model):
             'message_follower_ids', 'message_needaction',
             'message_channel_ids', 'message_partner_ids', 'message_unread',
             'message_ids', 'message_last_post', 'message_is_follower',
-            '__last_update', 'message_needaction_counter', 'display_name',
+            '__last_update', 'message_needaction_counter',
             'write_date', 'write_uid', 'create_date', 'message_unread_counter']
         try:
             common_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(self.db_url))

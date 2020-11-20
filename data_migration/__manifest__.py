@@ -21,7 +21,7 @@
 
 {
     'name': 'data migration',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'Accounting & Finance',
     'description': """
 This module allows to use several analytic plans according to the general journal.
