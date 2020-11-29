@@ -13,7 +13,7 @@
 						<field name="db_pass" password="True"/>
 
 						<field name="model_name" options="{'no_create': True}"/>
-						<field name="domain" invisible="1"/>
+						<field name="domain"/>
 						<field name="get_inactive"/>
 						<field name="fields_list" invisible="1"/>
 					</group>

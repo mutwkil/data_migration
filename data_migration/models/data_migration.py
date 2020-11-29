@@ -53,7 +53,7 @@ class DataMigration(models.Model):
             print('---333--', type(fields), fields)
             uid_db1 = common_1.authenticate(self.db_name, self.db_user, self.db_pass, {})
             db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
-                                           [[['id','>','5']]],
+                                           [[]],
                                            {'fields': [], 'limit': 1})
             print('............', db_1_obj[0])
             # for iii in db_1_obj[0].keys():
@@ -68,7 +68,7 @@ class DataMigration(models.Model):
 
 
     def connect(self):
-        # fields = self.fields_list.split(",")
+        domain = self.domain
         bad_chars = [';', ':', '!', "*", '&', "\'", '	']
         ll_list = []
         for f_name in self.db1_fields:
@@ -87,13 +87,19 @@ class DataMigration(models.Model):
 
         common_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(self.db_url))
         models_1 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(self.db_url))
-        domain = self.domain
-        # domain = domain.split(',')
         uid_db1 = common_1.authenticate(self.db_name, self.db_user, self.db_pass, {})
         # if not self.get_inactive:
-        db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
-                                       [[]],
-                                       {'fields': ll_list})
+        dom ='id'
+        if domain:
+            domain = self.domain.split(' ')
+            db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
+                                           [[[domain[0], domain[1],domain[2]]]],
+                                           {'fields': ll_list})
+        else:
+            db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
+                                           [[]],
+                                           {'fields': ll_list})
+
         # ['id','not in',(1,2,3,4,5)]
         # ['id', '>', 3]
         if self.get_inactive:
