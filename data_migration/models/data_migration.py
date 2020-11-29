@@ -53,7 +53,7 @@ class DataMigration(models.Model):
             print('---333--', type(fields), fields)
             uid_db1 = common_1.authenticate(self.db_name, self.db_user, self.db_pass, {})
             db_1_obj = models_1.execute_kw(self.db_name, uid_db1, self.db_pass, self.model_name.model, 'search_read',
-                                           [[]],
+                                           [[['id','>','5']]],
                                            {'fields': [], 'limit': 1})
             print('............', db_1_obj[0])
             # for iii in db_1_obj[0].keys():
